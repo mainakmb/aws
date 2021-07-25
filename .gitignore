@@ -1,0 +1,4 @@
+terraform-eks/.terraform
+terraform-eks/.terraform.lock.hcl
+terraform-eks/kubeconfig*
+terraform-eks/terraform.tfstate
