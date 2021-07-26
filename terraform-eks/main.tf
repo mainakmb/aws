@@ -73,15 +73,31 @@ module "eks" {
   vpc_id                          = module.vpc.vpc_id
   cluster_endpoint_private_access = true
 
-  worker_groups = [
-    {
-      name                          = "worker-group-1"
-      instance_type                 = "t2.medium"
-      asg_desired_capacity          = 1
-      asg_max_size                  = 5
-      additional_security_group_ids = [aws_security_group.worker_group_one.id]
-    },
-  ]
+  node_groups = {
+    example = {
+      desired_capacity = 1
+      max_capacity     = 5
+      min_capacity     = 1
 
-  worker_additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
+      instance_type = "t3.large"
+      k8s_labels = {
+        Environment = "test"
+        GithubRepo  = "terraform-aws-eks"
+        GithubOrg   = "terraform-aws-modules"
+      }
+      additional_tags = {
+        ExtraTag = "example"
+      }
+      # taints = [
+      #   {
+      #     key    = "dedicated"
+      #     value  = "gpuGroup"
+      #     effect = "NO_SCHEDULE"
+      #   }
+      # ]
+    }
+  }
+  # map_roles    = var.map_roles
+  # map_users    = var.map_users
+  # map_accounts = var.map_accounts
 }
