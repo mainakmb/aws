@@ -69,3 +69,29 @@ module "eks" {
   # map_users    = var.map_users
   # map_accounts = var.map_accounts
 }
+
+resource "helm_release" "loki-stack" {
+  name       = "loki"
+  repository = "https://grafana.github.io/helm-charts"
+  chart      = "loki-stack"
+
+  set {
+    name  = "grafana.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "prometheus.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "prometheus.alertmanager.persistentVolume.enabled"
+    value = "false"
+  }
+
+  set {
+    name  = "prometheus.server.persistentVolume.enabled"
+    value = "false"
+  }
+}
