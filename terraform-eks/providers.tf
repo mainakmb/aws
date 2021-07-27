@@ -1,5 +1,13 @@
 terraform {
   required_version = ">= 1.0.0"
+  # backend needs s3 bucket to be created first
+  backend "s3" {
+    bucket         = "test1234xyz-tf-s3bucket"
+    key            = "global/s3/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "terraform-dynamodb-locks"
+    encrypt        = true
+  }
 }
 
 provider "aws" {

@@ -1,3 +1,33 @@
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "test1234xyz-tf-s3bucket"
+  # Enable versioning so we can see the history of files
+  versioning {
+    enabled = true
+  }
+
+  tags = {
+    Name = "My bucket"
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+}
+
+resource "aws_dynamodb_table" "terraform_locks" {
+  name         = "terraform-dynamodb-locks"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+}
+
 data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
 }
