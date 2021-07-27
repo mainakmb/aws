@@ -10,3 +10,7 @@ variable "cluster_name" {
 variable "cluster_version" {
     default = "1.19"
 }
+
+variable "instance_type" {
+    default = "t3.medium"
+}
