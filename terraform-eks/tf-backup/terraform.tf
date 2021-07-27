@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "test1234xyz-tf-s3bucket"
-  force_destroy = true
+  force_destroy = true  #Comment this to keep previous versions 
   # Enable versioning so we can see the history of files
   versioning {
     enabled = true
