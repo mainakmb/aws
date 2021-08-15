@@ -4,10 +4,15 @@ provider "aws" {
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "test1234xyz-tf-s3bucket"
-  force_destroy = true  #Comment this to keep previous versions 
+  # Uncomment this to destroy on resource deletion even s3 contains any file
+  #force_destroy = true
   # Enable versioning so we can see the history of files
   versioning {
     enabled = true
+  }
+  # Comment this lifecycle rule to destroy this resource
+  lifecycle {
+    prevent_destroy = true
   }
 
   tags = {
