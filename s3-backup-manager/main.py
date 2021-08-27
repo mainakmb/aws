@@ -36,7 +36,7 @@ def s3backupManage():
     d = {}
     for k in range(len(tar_list)):
       d[sort_id_list[k]] = tar_list[k]
-    sorted_d = sorted(d.items())
+    sorted_d = sorted(d.items())                        # Sort dictionary
     temp_list = []
     for l in sorted_d:
       temp_list.append(l[1])
